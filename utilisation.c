@@ -196,11 +196,19 @@ int main( int argc, char *argv ) {
 
   _InputData.iCount = 0;
 #ifdef STANDARD_FLOAT_IMPLEMENTATION
-  while( EOF != fscanf(pInFile, "%lf", &_InputData.fInVibration[_InputData.iCount++] ) )
-    ;
+  while( EOF != fscanf(pInFile, "%lf", &_InputData.fInVibration[_InputData.iCount++] ) ) {
+    if(_InputData.iCount > MAX_INPUT_VALUES-1) {
+      fprintf(stderr, "Error: Trying to read more than %d input values\n", MAX_INPUT_VALUES);
+      return -1;
+    }
+  }
 #elif defined(REVERSED_FLOAT_IMPLEMENTATION)
   while( EOF != fscanf(pInFile, "%s", sTmp) ) {
     sscanf(strrev(sTmp), "%lf", &_InputData.fInVibration[_InputData.iCount++]);
+    if(_InputData.iCount > MAX_INPUT_VALUES-1) {
+      fprintf(stderr, "Error: Trying to read more than %d input values\n", MAX_INPUT_VALUES);
+      return -1;
+    }
   }
 #else
 #  error You must define a way of reading in the input data!

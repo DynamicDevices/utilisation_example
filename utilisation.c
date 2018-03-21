@@ -146,7 +146,7 @@ double dCalculatePercentageUsage(PINPUT_DATA pInputData, double dTriggerLevel) {
     if(pInputData->fInVibration[i] >= dTriggerLevel)
       iTriggered++;
   }
-  dPercentageUsage = 100.0*(((double)iTriggered)/pInputData->iCount++);
+  dPercentageUsage = 100.0*(((double)iTriggered)/pInputData->iCount);
 
   return dPercentageUsage;
 }
